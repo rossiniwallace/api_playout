@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.math.BigDecimal;
 
-public record CourtCreated(
+public record CourtValidation(
         @NotBlank
         String name,
         @NotNull
@@ -17,7 +17,7 @@ public record CourtCreated(
         @NotBlank
         String latitude,
         @NotNull
-        @DecimalMin("0.0")
+        @DecimalMin("0.1")
         BigDecimal pricePerHour,
         @NotBlank
         String longitude,

@@ -1,7 +1,7 @@
 package br.com.playout.model;
 
 import br.com.playout.enums.SportType;
-import br.com.playout.record.court.CourtCreated;
+import br.com.playout.record.court.CourtValidation;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -40,7 +40,7 @@ public class Court {
         this.longitude = longitude;
     }
 
-    public Court(CourtCreated courtCreated) {
+    public Court(CourtValidation courtCreated) {
         this.name = courtCreated.name();
         this.sport = courtCreated.sport();
         this.pricePerHour = courtCreated.pricePerHour();

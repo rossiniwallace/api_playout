@@ -1,7 +1,7 @@
 package br.com.playout.resource;
 
 import br.com.playout.model.User;
-import br.com.playout.record.court.CourtCreated;
+import br.com.playout.record.court.CourtValidation;
 import br.com.playout.service.CourtService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/courts")
@@ -34,12 +35,22 @@ public class CourtController {
         return courtService.findById(courtId);
     }
 
-    @PostMapping("/{courtId}")
+    @PostMapping
     @Transactional
     public ResponseEntity create(
             @AuthenticationPrincipal User user,
-            @RequestBody @Valid CourtCreated body){
+            @RequestBody @Valid CourtValidation body){
         return courtService.create(body,user.getUserId());
+    }
+
+    @PutMapping("/{courtId}")
+    @Transactional
+    public ResponseEntity update(
+            @AuthenticationPrincipal User user,
+            @PathVariable Long courtId,
+            @RequestBody @Valid Optional<CourtValidation> body){
+
+        return courtService.update(body,courtId,user.getUserId());
     }
 
     @DeleteMapping("/{courtId}")
